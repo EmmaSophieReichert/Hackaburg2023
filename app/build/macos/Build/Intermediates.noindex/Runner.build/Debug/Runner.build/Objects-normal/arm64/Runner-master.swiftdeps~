@@ -1,0 +1,8 @@
+version: "Apple Swift version 5.8 (swiftlang-5.8.0.124.2 clang-1403.0.22.11.100)"
+options: "8aeef253a8aeae6d8e45928a6e1e782c07b422f6e4254437ff2b9e4947ce5b50"
+build_start_time: [1685041442, 306675000]
+build_end_time: [1685041442, 532997000]
+inputs:
+  "/Users/emmasophie/Desktop/Hackaburg/sustainability/macos/Flutter/GeneratedPluginRegistrant.swift": !private [1685041389, 91369366]
+  "/Users/emmasophie/Desktop/Hackaburg/sustainability/macos/Runner/AppDelegate.swift": !private [1684953162, 0]
+  "/Users/emmasophie/Desktop/Hackaburg/sustainability/macos/Runner/MainFlutterWindow.swift": !private [1684953162, 0]
