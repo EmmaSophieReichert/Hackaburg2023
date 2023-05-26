@@ -49,6 +49,8 @@ dev_dependencies:
   flutter_native_splash: ^2.0.1+1
 
 flutter_native_splash:
+  image: images/Logo.png
+  color: "A6B38F"
 
 
 # For information on the generic Dart part of this file, see the
