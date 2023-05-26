@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'select_consumer_view.dart';
+import 'pv_input_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -33,6 +34,11 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      initialRoute: '/',
+      routes: {
+        //'/': (context) => const MyHomePage(),
+        '/energyJourney': (context) => EnergyJourneyScreen(),
+      },
     );
   }
 }

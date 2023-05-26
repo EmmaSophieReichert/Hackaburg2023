@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'consumer.dart';
+import 'pv_input_view.dart';
 
 class GridItem {
 
@@ -113,12 +114,7 @@ class SelectConsumerView extends StatelessWidget {
                   // Code, der in jedem Schleifendurchlauf mit dem aktuellen Listenelement ausgeführt wird
                 }
                 print(selectedNames);
-                //Navigator.push(
-                  //context,
-                  //MaterialPageRoute(
-                    //builder: (context) => SecondRoute(selectedNames: selectedNames),
-                  //),
-                //);
+                Navigator.pushNamed(context, '/energyJourney');
               },
               child: Text('Next'),
             ),
