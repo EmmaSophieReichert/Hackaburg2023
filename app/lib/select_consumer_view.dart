@@ -4,19 +4,19 @@ import 'consumer.dart';
 class GridItem {
 
   String title = "";
-  Color backgroundColor = Colors.red;
+  Color backgroundColorHex = const Color(0xFFFCFDDB);
   bool isSelected = false;
   String imgPath  = "";
 
-  GridItem(this.title, this.backgroundColor, this.isSelected, this.imgPath);
+  GridItem(this.title, this.isSelected, this.imgPath);
 }
 
 List<GridItem> gridItems = [
-  GridItem('washing machine', Colors.red, false, "...png"),
-  GridItem('oven', Colors.blue, false, "...png"),
-  GridItem('dryer', Colors.green, false, "...png"),
-  GridItem('cooker', Colors.green, false, "...png"),
-  GridItem('dishwasher', Colors.green, false, "...png"),
+  GridItem('washing machine', false, "assets/images/consumer/washing machine.png"),
+  GridItem('oven', false, "assets/images/consumer/oven.png"),
+  GridItem('dryer', false, "assets/images/consumer/dryer.png"),
+  GridItem('cooker', false, "assets/images/consumer/cooker.png"),
+  GridItem('dishwasher', false, "assets/images/consumer/dishwasher.png"),
 ];
 
 class MyGridView extends StatefulWidget {
@@ -27,31 +27,65 @@ class MyGridView extends StatefulWidget {
 class _MyGridViewState extends State<MyGridView> {
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2, // Anzahl der Spalten in der GridView
-      ),
-      itemCount: gridItems.length,
-      itemBuilder: (BuildContext context, int index) {
-        GridItem item = gridItems[index];
-        return GestureDetector(
-          onTap: () {
-            setState(() {
-              item.isSelected = !item.isSelected;
-            });
-          },
-          child: Container(
-            color: item.isSelected ? Colors.yellow : item.backgroundColor,
-            child: Center(
-              child: Text(item.title),
+    return LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints)
+    {
+      final screenWidth = constraints.maxWidth;
+      final cardWidth = screenWidth * 0.25; // 25% der Bildschirmbreite
+      return GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2, // Anzahl der Spalten in der GridView
+          childAspectRatio: cardWidth / cardWidth, // Seitenverhältnis für die Karten
+        ),
+        itemCount: gridItems.length,
+        itemBuilder: (BuildContext context, int index) {
+          GridItem item = gridItems[index];
+          return GestureDetector(
+            onTap: () {
+              setState(() {
+                item.isSelected = !item.isSelected;
+              });
+            },
+            child: Container(
+              margin: EdgeInsets.all(10.0),
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(
+                      20.0), // abgerundete Ecken
+                ),
+                color: item.isSelected ? Colors.brown : item.backgroundColorHex,
+                child: Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Image.asset(
+                        item.imgPath,
+                        fit: BoxFit.contain, // Anpassen, um das ganze Bild anzuzeigen
+                        width: cardWidth, // Breite des Bildes entsprechend der Kartenbreite
+                        height: cardWidth, // Höhe des Bildes entsprechend der Kartenbreite
+                      ),
+                      SizedBox(height: 8),
+                      // Abstand zwischen Bild und Beschreibung
+                      Text(
+                        item.title,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                          color: Colors.black, // Textfarbe des Titels
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      );
+    },
     );
   }
 }
-
 
 class SelectConsumerView extends StatelessWidget {
   const SelectConsumerView({super.key});
@@ -62,7 +96,35 @@ class SelectConsumerView extends StatelessWidget {
       appBar: AppBar(
         title: const Text('First Route'),
       ),
-      body: MyGridView(),
+      body: Container(
+        color: Color(0xFFC7A486), // Hintergrundfarbe des Containers
+        child: Column(
+          children: [
+            Expanded(
+              child: MyGridView(),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                var selectedNames = [];
+                for (GridItem item in gridItems) {
+                  if(item.isSelected){
+                    selectedNames.add(item.title);
+                  }
+                  // Code, der in jedem Schleifendurchlauf mit dem aktuellen Listenelement ausgeführt wird
+                }
+                print(selectedNames);
+                //Navigator.push(
+                  //context,
+                  //MaterialPageRoute(
+                    //builder: (context) => SecondRoute(selectedNames: selectedNames),
+                  //),
+                //);
+              },
+              child: Text('Next'),
+            ),
+          ],
+        ),
+      ),
     );
   }
 

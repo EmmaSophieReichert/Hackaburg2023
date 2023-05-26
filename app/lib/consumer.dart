@@ -9,7 +9,7 @@ class Consumer {
 
 List<Consumer> consumerList = [
   //TODO: iconIDs anpassen
-  Consumer("washing mashine", 0.58, "kWh", "0"),
+  Consumer("washing machine", 0.58, "kWh", "0"),
   Consumer("oven", 0.74, "kWh", "0"),
   Consumer("dryer", 5.04, "kWh", "0"),
   Consumer("cooker", 1.5, "kWh", "0"),
