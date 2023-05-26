@@ -5,16 +5,19 @@ class Consumer {
   String iconID;
 
   Consumer(this.name, this.power, this.unit, this.iconID);
-
 }
 
-class ConsumerList {
+List<Consumer> consumerList = [
   //TODO: iconIDs anpassen
-  Consumer waschmaschine = Consumer("Waschmaschine", 0.58, "kWh", "0");
-  Consumer backofen = Consumer("Backofen", 0.74, "kWh", "0");
-  Consumer trockner = Consumer("Trockner", 5.04, "kWh", "0");
-  Consumer herd = Consumer("Herd", 1.5, "kWh", "0");
-  Consumer geschirrspueler = Consumer("Geschirrspülmaschine", 1.05, "kWh", "0");
+  Consumer("washing mashine", 0.58, "kWh", "0"),
+  Consumer("oven", 0.74, "kWh", "0"),
+  Consumer("dryer", 5.04, "kWh", "0"),
+  Consumer("cooker", 1.5, "kWh", "0"),
+  Consumer("dishwasher", 1.05, "kWh", "0"),
+];
+
+Consumer findConsumerByName(String name) {
+  return consumerList.firstWhere((item) => item.name == name);
 }
 
 class Person {

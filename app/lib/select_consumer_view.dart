@@ -1,4 +1,57 @@
 import 'package:flutter/material.dart';
+import 'consumer.dart';
+
+class GridItem {
+
+  String title = "";
+  Color backgroundColor = Colors.red;
+  bool isSelected = false;
+  String imgPath  = "";
+
+  GridItem(this.title, this.backgroundColor, this.isSelected, this.imgPath);
+}
+
+List<GridItem> gridItems = [
+  GridItem('washing machine', Colors.red, false, "...png"),
+  GridItem('oven', Colors.blue, false, "...png"),
+  GridItem('dryer', Colors.green, false, "...png"),
+  GridItem('cooker', Colors.green, false, "...png"),
+  GridItem('dishwasher', Colors.green, false, "...png"),
+];
+
+class MyGridView extends StatefulWidget {
+  @override
+  _MyGridViewState createState() => _MyGridViewState();
+}
+
+class _MyGridViewState extends State<MyGridView> {
+  @override
+  Widget build(BuildContext context) {
+    return GridView.builder(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2, // Anzahl der Spalten in der GridView
+      ),
+      itemCount: gridItems.length,
+      itemBuilder: (BuildContext context, int index) {
+        GridItem item = gridItems[index];
+        return GestureDetector(
+          onTap: () {
+            setState(() {
+              item.isSelected = !item.isSelected;
+            });
+          },
+          child: Container(
+            color: item.isSelected ? Colors.yellow : item.backgroundColor,
+            child: Center(
+              child: Text(item.title),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
 
 class SelectConsumerView extends StatelessWidget {
   const SelectConsumerView({super.key});
@@ -9,45 +62,7 @@ class SelectConsumerView extends StatelessWidget {
       appBar: AppBar(
         title: const Text('First Route'),
       ),
-      body: GridView.count(
-        primary: false,
-        padding: const EdgeInsets.all(20),
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
-        crossAxisCount: 2,
-        children: <Widget>[
-          Container(
-            padding: const EdgeInsets.all(8),
-            color: Colors.teal[100],
-            child: const Text("He'd have you all unravel at the"),
-          ),
-          Container(
-            padding: const EdgeInsets.all(8),
-            color: Colors.teal[200],
-            child: const Text('Heed not the rabble'),
-          ),
-          Container(
-            padding: const EdgeInsets.all(8),
-            color: Colors.teal[300],
-            child: const Text('Sound of screams but the'),
-          ),
-          Container(
-            padding: const EdgeInsets.all(8),
-            color: Colors.teal[400],
-            child: const Text('Who scream'),
-          ),
-          Container(
-            padding: const EdgeInsets.all(8),
-            color: Colors.teal[500],
-            child: const Text('Revolution is coming...'),
-          ),
-          Container(
-            padding: const EdgeInsets.all(8),
-            color: Colors.teal[600],
-            child: const Text('Revolution, they...'),
-          ),
-        ],
-      ),
+      body: MyGridView(),
     );
   }
 
@@ -63,6 +78,8 @@ class SelectConsumerView extends StatelessWidget {
 //           },
 //         ),
 //       )
+
+
 
 
 
