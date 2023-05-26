@@ -7,4 +7,3 @@ class Consumer {
   Consumer(this.name, this.power, this.unit, this.iconID);
 
 }
-
