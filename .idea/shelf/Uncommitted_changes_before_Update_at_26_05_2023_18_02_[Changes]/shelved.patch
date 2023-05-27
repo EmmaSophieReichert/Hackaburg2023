@@ -1,0 +1,32 @@
+Index: app/lib/solarcalculation.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/lib/solarcalculation.dart b/app/lib/solarcalculation.dart
+new file mode 100644
+--- /dev/null	(date 1685116896581)
++++ b/app/lib/solarcalculation.dart	(date 1685116896581)
+@@ -0,0 +1,21 @@
++class SolarCalculation {
++
++  double calculate_yield() {
++    calculate_eInclined()
++    calculate_aPlant()
++    return calculate_eInclined(hour) * calculate_aPlant() * 0.15; //0.15 % als Wirkungsgrad der PV Module (erstmal fixwert angenommen)
++  }
++
++  double calculate_eInclined(hour) {
++    return  //aus zeitreihe die entsprechende Stunde
++  }
++
++  double calculate_aPlant(){
++    return aModul * nModule;
++  }
++
++
++
++
++
++}
+\ No newline at end of file
