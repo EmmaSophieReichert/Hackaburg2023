@@ -59,11 +59,17 @@ class _MyGridViewState extends State<MyGridView> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Image.asset(
-                        item.imgPath,
-                        fit: BoxFit.contain, // Anpassen, um das ganze Bild anzuzeigen
-                        width: cardWidth, // Breite des Bildes entsprechend der Kartenbreite
-                        height: cardWidth, // Höhe des Bildes entsprechend der Kartenbreite
+                      ColorFiltered(
+                          colorFilter: ColorFilter.mode(
+                            Color(0xFFA6B38F), // Farbe, die dem Icon gegeben werden soll
+                            BlendMode.srcIn,
+                          ),
+                          child: Image.asset(
+                            item.imgPath,
+                            fit: BoxFit.contain, // Anpassen, um das ganze Bild anzuzeigen
+                            width: cardWidth, // Breite des Bildes entsprechend der Kartenbreite
+                            height: cardWidth,
+                          ),
                       ),
                       SizedBox(height: 8),
                       // Abstand zwischen Bild und Beschreibung
@@ -95,6 +101,7 @@ class SelectConsumerView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color(0xFFA6B38F),
         title: const Text('First Route'),
       ),
       body: Container(
@@ -105,6 +112,9 @@ class SelectConsumerView extends StatelessWidget {
               child: MyGridView(),
             ),
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Color(0xFFA6B38F), // Hintergrundfarbe des Buttons
+              ),
               onPressed: () {
                 var selectedNames = [];
                 for (GridItem item in gridItems) {
@@ -137,29 +147,4 @@ class SelectConsumerView extends StatelessWidget {
 //         ),
 //       )
 
-
-
-
-
-}
-
-class SecondRoute extends StatelessWidget {
-  const SecondRoute({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Second Route'),
-      ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            // Navigate back to first route when tapped.
-          },
-          child: const Text('Go back!'),
-        ),
-      ),
-    );
-  }
 }

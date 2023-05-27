@@ -3,7 +3,12 @@ import 'select_consumer_view.dart';
 import 'pv_input_view.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MaterialApp(
+    home: YourJourneyScreen(),
+    routes: {
+      '/energyJourney': (context) => EnergyJourneyScreen(),
+    },
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -139,6 +144,232 @@ class _MyHomePageState extends State<MyHomePage> {
         child: const Icon(Icons.add),
       ),
       // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+}
+
+
+class YourJourneyScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color(0xFFA6B38F), // Hintergrundfarbe des Titels
+        title: Text('Your Journey'),
+      ),
+      body: Container(
+        color: Color(0xFFA6B38F),
+        padding: EdgeInsets.all(16.0),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              CustomBox(
+                description: 'Next Recommendations',
+                time: 'Today, at 3:00 PM',
+                recommendation: 'Do the laundry',
+                reason: 'Why? High sun exposure',
+                buttonLabel: 'Done',
+                icon: Icons.alarm, // Beispiel-Icon
+                onPressed: () {
+                  // Hier können Sie die Funktion für den Button implementieren
+                },
+              ),
+              SizedBox(height: 16.0),
+              CustomBox(
+                description: 'Current Score',
+                currentValue: 0,
+                levelThreshold: 500,
+                icon: Icons.score, // Beispiel-Icon
+              ),
+              SizedBox(height: 16.0),
+              CustomBox(
+                description: 'Total Cost Savings',
+                value: '\$0', // Beispielwert
+                icon: Icons.attach_money, // Beispiel-Icon
+              ),
+              SizedBox(height: 16.0),
+              CustomBox(
+                description: 'Total CO2 Emissions Avoided',
+                value: '0g', // Beispielwert
+                icon: Icons.cloud, // Beispiel-Icon
+              ),
+              SizedBox(height: 16.0),
+              CustomBox(
+                description: 'Current Autonomy Level',
+                progress: 0.75, // Beispielwert (75%)
+                icon: Icons.battery_full, // Beispiel-Icon
+              ),
+              ElevatedButton(
+                child: const Text('Collect Data'),
+                style: ElevatedButton.styleFrom(
+                  primary: Color(0xFFC7A486), // Hintergrundfarbe des Buttons
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const SelectConsumerView()),
+                  );
+                  // Navigate to second route when tapped.
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class CustomBox extends StatelessWidget {
+  final String description;
+  final String? time;
+  final String? recommendation;
+  final String? reason;
+  final String? buttonLabel;
+  final int? currentValue;
+  final int? levelThreshold;
+  final String? value;
+  final double? progress;
+  final IconData? icon;
+  final VoidCallback? onPressed;
+
+  const CustomBox({
+    required this.description,
+    this.time,
+    this.recommendation,
+    this.reason,
+    this.buttonLabel,
+    this.currentValue,
+    this.levelThreshold,
+    this.value,
+    this.progress,
+    this.icon,
+    this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(16.0),
+      margin: EdgeInsets.only(bottom: 16.0),
+      decoration: BoxDecoration(
+        color: Color(0xFFFCFDDB), // Hintergrundfarbe der Boxen
+        borderRadius: BorderRadius.circular(10.0), // abgerundete Ecken
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Icon(
+            icon,
+            color: Colors.black,
+            size: 32.0, // Größe der Icons
+          ),
+          SizedBox(width: 16.0),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  description,
+                  style: TextStyle(
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+                if (time != null) ...[
+                  SizedBox(height: 8.0),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.access_time,
+                        size: 16.0,
+                        color: Colors.black,
+                      ),
+                      SizedBox(width: 4.0),
+                      Text(
+                        time!,
+                        style: TextStyle(
+                          fontSize: 14.0,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+                if (recommendation != null) ...[
+                  SizedBox(height: 8.0),
+                  Text(
+                    recommendation!,
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
+                if (reason != null) ...[
+                  SizedBox(height: 8.0),
+                  Text(
+                    reason!,
+                    style: TextStyle(
+                      fontSize: 14.0,
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
+                if (buttonLabel != null && onPressed != null) ...[
+                  SizedBox(height: 16.0),
+                  ElevatedButton(
+                    onPressed: onPressed!,
+                    style: ElevatedButton.styleFrom(
+                      primary: Color(0xFFA6B38F), // Hintergrundfarbe des Buttons
+                    ),
+                    child: Text(buttonLabel!),
+                  ),
+                ],
+                if (currentValue != null && levelThreshold != null) ...[
+                  SizedBox(height: 8.0),
+                  Text(
+                    'Level ${currentValue! ~/ levelThreshold!}',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                  SizedBox(height: 4.0),
+                  LinearProgressIndicator(
+                    value: (currentValue! % levelThreshold!) / levelThreshold!,
+                    backgroundColor: Color(0xFFC7A486), // Farbe der Progressbar
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+                  ),
+                ],
+                if (value != null) ...[
+                  SizedBox(height: 8.0),
+                  Text(
+                    value!,
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
+                if (progress != null) ...[
+                  SizedBox(height: 8.0),
+                  LinearProgressIndicator(
+                    value: progress,
+                    backgroundColor: Color(0xFFC7A486), // Farbe der Progressbar
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+                  ),
+                ],
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

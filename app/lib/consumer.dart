@@ -22,4 +22,6 @@ Consumer findConsumerByName(String name) {
 
 class Person {
   final consumerList = <Consumer>[];
+
+  Person(consumerList)
 }

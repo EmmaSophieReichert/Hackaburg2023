@@ -16,21 +16,23 @@ class _EnergyJourneyScreenState extends State<EnergyJourneyScreen> {
   String _selectedDirection = 'North';
 
   TextEditingController _moduleCountController = TextEditingController();
-  TextEditingController _modulePowerController = TextEditingController();
+  TextEditingController _moduleSizeController = TextEditingController();
   TextEditingController _roofPitchController = TextEditingController();
+  TextEditingController _powerConsumptionController = TextEditingController();
 
   @override
   void dispose() {
     _moduleCountController.dispose();
-    _modulePowerController.dispose();
+    _moduleSizeController.dispose();
     _roofPitchController.dispose();
+    _powerConsumptionController.dispose();
     super.dispose();
   }
 
   void _saveData() {
     if (_formKey.currentState!.validate()) {
       String moduleCount = _moduleCountController.text;
-      String modulePower = _modulePowerController.text;
+      String moduleSize = _moduleSizeController.text;
       String roofPitch = _roofPitchController.text;
 
       // Hier können Sie die gesammelten Daten in einer Klasse abspeichern oder weiterverarbeiten
@@ -45,117 +47,142 @@ class _EnergyJourneyScreenState extends State<EnergyJourneyScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color(0xFFA6B38F),
         title: Text('Start your Energy Journey!'),
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Please enter data about your PV system',
-                style: TextStyle(
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 16.0),
-              Form(
-                key: _formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Number of Modules'),
-                    TextFormField(
-                      controller: _moduleCountController,
-                      keyboardType: TextInputType.number,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Please enter the number of modules';
-                        }
-                        return null;
-                      },
-                    ),
-                    SizedBox(height: 16.0),
-                    Text('Power per Module'),
-                    TextFormField(
-                      controller: _modulePowerController,
-                      keyboardType: TextInputType.number,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Please enter the power per module';
-                        }
-                        return null;
-                      },
-                    ),
-                    SizedBox(height: 16.0),
-                    Text('Roof Pitch'),
-                    TextFormField(
-                      controller: _roofPitchController,
-                      keyboardType: TextInputType.number,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Please enter the roof pitch';
-                        }
-                        return null;
-                      },
-                    ),
-                    SizedBox(height: 16.0),
-                    Text('Roof Direction'),
-                    DropdownButton<String>(
-                      value: _selectedDirection,
-                      onChanged: (newValue) {
-                        setState(() {
-                          _selectedDirection = newValue!;
-                        });
-                      },
-                      items: [
-                        DropdownMenuItem(
-                          value: 'North',
-                          child: Text('North'),
+      body: Container(
+        color: Color(0xFFC7A486), // Hintergrundfarbe des Containers
+        child: Center(
+          child: SingleChildScrollView(
+            padding: EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Please enter data about your power consumption in kwh',
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
                         ),
-                        DropdownMenuItem(
-                          value: 'North-East',
-                          child: Text('North-East'),
-                        ),
-                        DropdownMenuItem(
-                          value: 'East',
-                          child: Text('East'),
-                        ),
-                        DropdownMenuItem(
-                          value: 'South-East',
-                          child: Text('South-East'),
-                        ),
-                        DropdownMenuItem(
-                          value: 'South',
-                          child: Text('South'),
-                        ),
-                        DropdownMenuItem(
-                          value: 'South-West',
-                          child: Text('South-West'),
-                        ),
-                        DropdownMenuItem(
-                          value: 'West',
-                          child: Text('West'),
-                        ),
-                        DropdownMenuItem(
-                          value: 'North-West',
-                          child: Text('North-West'),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 16.0),
-                    Center(
-                      child: ElevatedButton(
-                        onPressed: _saveData,
-                        child: Text('Save'),
                       ),
-                    ),
-                  ],
+                      TextFormField(
+                        controller: _powerConsumptionController,
+                        keyboardType: TextInputType.number,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Please enter the number of modules';
+                          }
+                          return null;
+                        },
+                      ),
+                      SizedBox(height: 16.0),
+                      Text(
+                        'Please enter data about your PV system',
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(height: 16.0),
+                      Text('Number of Modules'),
+                      TextFormField(
+                        controller: _moduleCountController,
+                        keyboardType: TextInputType.number,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Please enter the number of modules';
+                          }
+                          return null;
+                        },
+                      ),
+                      SizedBox(height: 16.0),
+                      Text('Size of one Module in qm'),
+                      TextFormField(
+                        controller: _moduleSizeController,
+                        keyboardType: TextInputType.number,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Please enter the size per module';
+                          }
+                          return null;
+                        },
+                      ),
+                      SizedBox(height: 16.0),
+                      Text('Roof Pitch'),
+                      TextFormField(
+                        controller: _roofPitchController,
+                        keyboardType: TextInputType.number,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Please enter the roof pitch';
+                          }
+                          return null;
+                        },
+                      ),
+                      SizedBox(height: 16.0),
+                      Text('Roof Direction'),
+                      DropdownButton<String>(
+                        value: _selectedDirection,
+                        onChanged: (newValue) {
+                          setState(() {
+                            _selectedDirection = newValue!;
+                          });
+                        },
+                        items: [
+                          DropdownMenuItem(
+                            value: 'North',
+                            child: Text('North'),
+                          ),
+                          DropdownMenuItem(
+                            value: 'North-East',
+                            child: Text('North-East'),
+                          ),
+                          DropdownMenuItem(
+                            value: 'East',
+                            child: Text('East'),
+                          ),
+                          DropdownMenuItem(
+                            value: 'South-East',
+                            child: Text('South-East'),
+                          ),
+                          DropdownMenuItem(
+                            value: 'South',
+                            child: Text('South'),
+                          ),
+                          DropdownMenuItem(
+                            value: 'South-West',
+                            child: Text('South-West'),
+                          ),
+                          DropdownMenuItem(
+                            value: 'West',
+                            child: Text('West'),
+                          ),
+                          DropdownMenuItem(
+                            value: 'North-West',
+                            child: Text('North-West'),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 16.0),
+                      Center(
+                        child: ElevatedButton(
+                          onPressed: _saveData,
+                          style: ElevatedButton.styleFrom(
+                            primary: Color(0xFFA6B38F), // Hintergrundfarbe des Buttons
+                          ),
+                          child: Text('Save'),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
