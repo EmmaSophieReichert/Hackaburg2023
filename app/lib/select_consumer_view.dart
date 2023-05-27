@@ -108,6 +108,13 @@ class SelectConsumerView extends StatelessWidget {
         color: Color(0xFFC7A486), // Hintergrundfarbe des Containers
         child: Column(
           children: [
+            Text(
+              'Please select the consumers you use',
+              style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             Expanded(
               child: MyGridView(),
             ),
