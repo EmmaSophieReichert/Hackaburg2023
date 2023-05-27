@@ -150,6 +150,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
 class YourJourneyScreen extends StatelessWidget {
+  final GlobalKey<_CustomBoxState> customBoxKey = GlobalKey<_CustomBoxState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -172,7 +174,7 @@ class YourJourneyScreen extends StatelessWidget {
                 buttonLabel: 'Done',
                 icon: Icons.alarm, // Beispiel-Icon
                 onPressed: () {
-                  // Hier können Sie die Funktion für den Button implementieren
+
                 },
               ),
               SizedBox(height: 16.0),
@@ -221,7 +223,7 @@ class YourJourneyScreen extends StatelessWidget {
   }
 }
 
-class CustomBox extends StatelessWidget {
+class CustomBox extends StatefulWidget {
   final String description;
   final String? time;
   final String? recommendation;
@@ -249,6 +251,33 @@ class CustomBox extends StatelessWidget {
   });
 
   @override
+  _CustomBoxState createState() => _CustomBoxState();
+}
+
+class _CustomBoxState extends State<CustomBox> {
+  int points = 0;
+  double costSavings = 0.0;
+  double co2Emissions = 0.0;
+
+  void increasePoints() {
+    setState(() {
+      points += 50;
+    });
+  }
+
+  void increaseCostSavings() {
+    setState(() {
+      costSavings += 0.21;
+    });
+  }
+
+  void increaseCO2Emissions() {
+    setState(() {
+      co2Emissions += 264.0;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(16.0),
@@ -261,7 +290,7 @@ class CustomBox extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Icon(
-            icon,
+            widget.icon,
             color: Colors.black,
             size: 32.0, // Größe der Icons
           ),
@@ -271,14 +300,14 @@ class CustomBox extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  description,
+                  widget.description,
                   style: TextStyle(
                     fontSize: 18.0,
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                   ),
                 ),
-                if (time != null) ...[
+                if (widget.time != null) ...[
                   SizedBox(height: 8.0),
                   Row(
                     children: [
@@ -289,7 +318,7 @@ class CustomBox extends StatelessWidget {
                       ),
                       SizedBox(width: 4.0),
                       Text(
-                        time!,
+                        widget.time!,
                         style: TextStyle(
                           fontSize: 14.0,
                           color: Colors.black,
@@ -298,10 +327,10 @@ class CustomBox extends StatelessWidget {
                     ],
                   ),
                 ],
-                if (recommendation != null) ...[
+                if (widget.recommendation != null) ...[
                   SizedBox(height: 8.0),
                   Text(
-                    recommendation!,
+                    widget.recommendation!,
                     style: TextStyle(
                       fontSize: 18.0,
                       fontWeight: FontWeight.bold,
@@ -309,30 +338,30 @@ class CustomBox extends StatelessWidget {
                     ),
                   ),
                 ],
-                if (reason != null) ...[
+                if (widget.reason != null) ...[
                   SizedBox(height: 8.0),
                   Text(
-                    reason!,
+                    widget.reason!,
                     style: TextStyle(
                       fontSize: 14.0,
                       color: Colors.black,
                     ),
                   ),
                 ],
-                if (buttonLabel != null && onPressed != null) ...[
+                if (widget.buttonLabel != null && widget.onPressed != null) ...[
                   SizedBox(height: 16.0),
                   ElevatedButton(
-                    onPressed: onPressed!,
+                    onPressed: widget.onPressed!,
                     style: ElevatedButton.styleFrom(
                       primary: Color(0xFFA6B38F), // Hintergrundfarbe des Buttons
                     ),
-                    child: Text(buttonLabel!),
+                    child: Text(widget.buttonLabel!),
                   ),
                 ],
-                if (currentValue != null && levelThreshold != null) ...[
+                if (widget.currentValue != null && widget.levelThreshold != null) ...[
                   SizedBox(height: 8.0),
                   Text(
-                    'Level ${currentValue! ~/ levelThreshold!}',
+                    'Level ${widget.currentValue! ~/ widget.levelThreshold!}',
                     style: TextStyle(
                       fontSize: 16.0,
                       fontWeight: FontWeight.bold,
@@ -341,15 +370,15 @@ class CustomBox extends StatelessWidget {
                   ),
                   SizedBox(height: 4.0),
                   LinearProgressIndicator(
-                    value: (currentValue! % levelThreshold!) / levelThreshold!,
+                    value: (widget.currentValue! % widget.levelThreshold!) / widget.levelThreshold!,
                     backgroundColor: Color(0xFFC7A486), // Farbe der Progressbar
                     valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
                   ),
                 ],
-                if (value != null) ...[
+                if (widget.value != null) ...[
                   SizedBox(height: 8.0),
                   Text(
-                    value!,
+                    widget.value!,
                     style: TextStyle(
                       fontSize: 20.0,
                       fontWeight: FontWeight.bold,
@@ -357,10 +386,10 @@ class CustomBox extends StatelessWidget {
                     ),
                   ),
                 ],
-                if (progress != null) ...[
+                if (widget.progress != null) ...[
                   SizedBox(height: 8.0),
                   LinearProgressIndicator(
-                    value: progress,
+                    value: widget.progress!,
                     backgroundColor: Color(0xFFC7A486), // Farbe der Progressbar
                     valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
                   ),

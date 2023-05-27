@@ -35,7 +35,7 @@ class _EnergyJourneyScreenState extends State<EnergyJourneyScreen> {
       String moduleCount = _moduleCountController.text;
       String moduleSize = _moduleSizeController.text;
       String roofPitch = _roofPitchController.text;
-      
+
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Data saved')),
       );
