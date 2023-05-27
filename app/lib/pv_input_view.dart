@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'main.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -34,11 +35,14 @@ class _EnergyJourneyScreenState extends State<EnergyJourneyScreen> {
       String moduleCount = _moduleCountController.text;
       String moduleSize = _moduleSizeController.text;
       String roofPitch = _roofPitchController.text;
-
-      // Hier können Sie die gesammelten Daten in einer Klasse abspeichern oder weiterverarbeiten
-
+      
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Data saved')),
+      );
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => YourJourneyScreen()),
       );
     }
   }

@@ -102,12 +102,13 @@ class SelectConsumerView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xFFA6B38F),
-        title: const Text('First Route'),
+        title: const Text('Consumer'),
       ),
       body: Container(
         color: Color(0xFFC7A486), // Hintergrundfarbe des Containers
         child: Column(
           children: [
+            SizedBox(height: 16.0),
             Text(
               'Please select the consumers you use',
               style: TextStyle(
@@ -115,6 +116,7 @@ class SelectConsumerView extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
+            SizedBox(height: 16.0),
             Expanded(
               child: MyGridView(),
             ),
