@@ -21,7 +21,17 @@ Consumer findConsumerByName(String name) {
 }
 
 class Person {
-  List<Consumer> consumerList = <Consumer>[];
+  double nModule; //Anzahl der Module
+  double aModule; //Größe eines Moduls in qm
+  string alignment; //Ausrichtung der Anlage --> Dropdown (Nord, Süd, West, Ost) später mehr
 
-  Person(this.consumerList);
+  final consumerList = <Consumer>[];
+
+  double getNModule(){
+    return nModule;
+  }
+
+  double getAModule(){
+    return aModule;
+  }
 }
